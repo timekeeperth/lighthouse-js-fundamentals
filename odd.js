@@ -16,3 +16,4 @@ function isOdd(num) {
 }
 
 console.log(isOdd(10));
+console.log(isOdd(11));

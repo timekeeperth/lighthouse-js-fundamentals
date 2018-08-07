@@ -1,0 +1,334 @@
+Data structures
+
+Numbers, Booleans, and strings are the atoms that data structures are built from.
+
+Many types of information require more than one atom, though.
+
+Objects allow us to group values-including other objects-to build more complex
+structures.
+
+
+THE WERESQUIRREL
+
+JavaScript provides a data type specifically for storing sequences of values.
+It is called an ARRAY, and is written as a list of values between square brackets,
+separated by commas.
+
+let listOfNumbers = [2, 3, 5, 7, 11];
+console.log(listOfNumbers[2]);
+// -> 5
+console.log(listOfNumbers[0]);
+// -> 2
+console.log(listOfNumbers[2 - 1])
+// -> 3
+
+PROPERTIES
+
+Almost all Javascript values have properties. The exceptions are 'null' and
+'undefined'. If you try to access a property on one of these nonvalues, you
+get an error.
+
+null.length;
+// -> TypeError: null has no properties
+
+The two main ways to access properties in JavaScript are with a dot and with
+square brackets. Both value.x and value[x] access a property on value --
+but not necessarily the same property.
+
+The difference is in how x is interpreted.
+
+When using a dot -- value.x -- the word after the dot is the literal name of
+the property.
+
+Whereas value.x fetches the property of value named "x" -- when using square brackets -- value[x] --
+tries to evaluate the expression x and uses the result, converted to a string, as the property
+name.
+
+So if you know that the property you are interested in is called 'color', you say value.color.
+
+If you want to extract the property named by the value held in the binding i, you say value[i].
+
+Property names are strings.
+
+The dot notation works only with names that look like valid binding names.
+If you want to access a property named 2 or John Doe, you must use square brackets:
+value[2] or value["John Doe"].
+
+The elements in an array are stored as the array's properties, using numbers as property names.
+Because you can't use the dot notation with numbers and usually want to use a binding that holds
+the index anyway, you have to use the bracket notation to get at them.
+
+
+METHODS
+
+Both string and array objects contain, in addition to the length property, a number of properties --
+-- that hold function values.
+
+let doh = "Doh";
+console.log(typeof doh.toUpperCase);
+// -> function
+console.log(doh.toUpperCase());
+// -> DOH
+
+Every string has a toUpperCase property. When called, it will return a copy of
+the string with all caps. There is also toLowerCase, the other way.
+// expected output: "number"
+
+console.log(typeof 'blubber');
+// expected output: "string"
+
+console.log(typeof true);
+// expected output: "boolean"
+
+console.log(typeof declaredButUndefinedVariable);
+// expected output: "undefined";
+
+BACK TO METHODS:
+
+same code:
+
+let doh = "Doh";
+console.log(typeof doh.toUpperCase);
+// → function
+
+Even though the call to toUpperCase does not pass any arguments, the function
+somehow has access to the string "Doh", the value whose property we called.
+
+Properties that contain functions are generally called 'methods' of the value
+they belong to, as in "toUpperCase is a method of a string".
+
+This example demonstrates two methods you can use to manipulate arrays:
+
+let sequence = [1, 2, 3];
+sequence.push(4);
+sequence.push(5);
+console.log(sequence);
+// -> [1, 2, 3, 4, 5]
+console.log(sequence.pop());
+// -> 5
+console.log(sequence);
+// -> [1, 2, 3, 4]
+
+The push method adds values to the end of an array, and the pop method does the --
+-- opposite, removing the last value in the array and returning it.
+
+These names are the traditional terms for operations on a STACK.
+
+A stack, in programming, is a data structure that allows you to push values into it and pop --
+-- them out again in the opposite order so that the thing that was added last is removed first.
+
+These are common in programming
+
+
+BACK TO:
+
+weresquirrel.
+
+OBJECTS
+
+A set of daily log entries can be represented as an array. But the entries do not consist --
+of just a number or a string -- each entry needs to store a list of activities and a Boolean --
+value that indicates whether Jacques turned into a squirrel or not.
+
+Ideally we would like to group these together into a single value and then put those grouped values into an
+array of log entries.
+
+Values of the type OBJECT are arbitrary collections of properties. One way to create an object is by using --
+-- braces as an expression.
+
+let day1 = {
+  squirrel: false,
+  events: ["work", "touched tree", "pizza", "running"]
+};
+console.log(day1.squirrel);
+// -> false
+console.log(day1.wolf);
+// -> undefined
+day1.wolf = false;
+console.log(day1.wolf);
+// -> false
+
+Inside the braces, there is a list of properties separated by commas. Each property --
+-- has a name followed by a colon and a value. When an object is written over multiple lines ,
+indenting it helps with readability -- like in the example.
+
+Properties whose names aren't valid binding names or valid numbers have to be quoted.
+
+let descriptions = {
+  work: "Went to work",
+  "touched tree": "Touched a tree"
+};
+
+This means that braces have two meanings in JavaScript. At the start of a statement, they start a block --
+-- of statements. In any other position, they describe an object. Fortunately, it is rarely usefeul to start
+a statement with an object in braces, so the ambiguity between these two is not much of a problem.
+
+Reading a property that doesn't exist will give you the value undefined.
+
+It is possible to assign a value to a property expression with the = operator.
+This will replace the property's value if it already existed or create a new property on the object if it didn't.
+
+To briefly return to our tentacle model of bindings-property bindings are similar. They GRASP values, but --
+other bindings and properties might be holding onto those same values. You may think of objects as octopuses with --
+-- any number of tentancles, each of which has a name tattooed on it.
+
+The DELETE operator cuts off a tentacle from such an octopus. It is a unary operator that, when applied to an object --
+-- property, will remove the named property from the object. This is not a common thing to do, but it is possible.
+
+let anObject = {left: 1, right: 2};
+console.log(anObject.left);
+// -> left
+delete anObject.left;
+console.log(anObject.left);
+// -> undefined
+console.log("left" in anObject);
+// -> false
+console.log("right" in anObject);
+// -> trouble
+
+The binary 'in' operator, when applied to a string and an object, tells you whether that object has a property with --
+-- that name. In operator is quite self-explanatory.
+
+The difference between setting a property to undefined and actually deleting it is that, in the first case,
+the object still has the property (it just doesn't have a very interesting value), whereas --
+-- in the second case the property is no longer present and in (operator) will return false.
+
+To find out what properties an object has, you can use the Object.keys function. You give it an object, --
+-- and it returns an array of strings - the object's property names.
+
+console.log(Object.keys({x: 0, y: 0, z: 2});
+// -> ["x", "y", "z"]
+
+There's an Object.assign function that copies all properties from one object into another.
+
+let objectA = {a: 1, b: 2};
+Object.assign(objectA, {b: 3, c: 4});
+console.log(objectA);
+console.log(objectA);
+// -> {a: 1, b: 3, c: 4}
+
+Arrays, then, are just a kind of object specialized for storing sequences of things.
+If you evaluate typeof [], it produces "object". You can see them as long, flat octopuses with all --
+-- their tentacles in a neat row, labeled with numbers.
+
+We will represent the journal that Jacques keeps as an array of objects.
+
+let journal = [
+  {events: ["work", "touched tree", "pizza,
+            "running", "television"],
+   squirrel: false},
+   {events: ["work", "ice cream", "cauliflower",
+             "lasagna", "touched tree", "brushed teeth"],
+   squirrel: false},
+   {events: ["weekend", "cycling", "break", "peanuts",
+             "beer"],
+    squirrel: true},
+  /# and so on... */
+];
+
+-- note: Just because he had peanuts, we know she was a squirrel?
+
+
+ARRAYS
+
+var director = "Steven Spielberg";
+var films = ["Jaws", "Raiders of the Lost Ark", "A.I."];
+
+We've declated a variable named 'director' porinting to a string value, and a
+variable named 'films' pointing to an array of string values.
+
+Arrays are special, built-in JavaScript objects designed for storing lists on values -
+in our case, film titles. This greatly improves our code, as we no longer need to store
+many separate variables to refer to all the related values we want to work with.
+
+How exactly do we work with arrays? By indexing them:
+
+var director = "Steven Spielberg";
+var films = ["Jaws", "Raiders of the Lost Ark", "A.I."];
+
+"My favourite " + director + " film is " + films[1];
+'My favourite Steven Spielberg film is Raiders of the Lost Ark'
+
+What we've done is INDEXED the films array. We've looked into films and pulled
+out the string at index 1. The index refers to a value's place in an array,
+computers start counting at 0. This means the first index of an array is 0.
+
+--
+
+> // "films at index 0: " + films[0];
+undefined
+> "films at index 1: " + films[1];
+'films at index 1: Raiders of the Lost Ark'
+> "films at index 2: " + films[2];
+'films at index 2: A.I.'
+> "films at index 3: " + films[3];
+'films at index 3: undefined'
+
+Since our array is a list of strings, we've pulled out each string and conatenated it
+to another.
+
+But arrays can store more than just strings. In fact, they can store any kind of value
+or combination of values.
+
+var oddfNumbers = [1, 3, 5, 7, 9];
+var randomStuff = [1.15, "bicycle", true];
+
+ARRAY operations
+Now that we know how to declate arrays and index their values, let's take a look at how
+to add new values or modify existing ones. Reset working variables in the node REPL.
+
+> var director = "Steven Spielberg";
+undefined
+> var films = ["Jaws", "Raiders of the Lost Ark", "A.I."];
+undefined
+> films[2] = "Jurassic Park";
+'Jurassic Park'
+> films;
+[ 'Jaws', 'Raiders of the Lost Ark', 'Jurassic Park' ]
+> films.push("A.I.");
+4
+> films;
+[ 'Jaws', 'Raiders of the Lost Ark', 'Jurassic Park', 'A.I.' ]
+
+
+// We can set a new value at an array's index by using a variable declaration
+notation, but instead of setting a value to a variable we set it to a particular
+index: films[2] = "Jurassic Park"
+
+The films arrays then looks like this:
+
+["Jaws", "Raiders of the Lost Ark", "Jurassic Park"]
+
+"A.I." is gone, and in its place we've put "Jurassic Park". The reason we've
+also types the expression films; by itself was so the node REPL print out the value of
+films for us.
+
+To add "A.I." back, but at the end of the list, we used the push function:
+films.push("A.I.");.
+
+The push is a function that adds an item to the end of an array, and you call it on an
+array using dot notation (films.push("A.I.");). JavaScript will know you're trying to
+push a new value at the end of the specific array you want without you having to pass it in as
+an argument.
+
+ARRAY Properties
+It's important to know that JavaScript objects also have properties. One property of arrays that
+can be particularly useful is the length property.
+
+> director + " is the director of " + films.length + " films";
+'Steven Spielberg is the director of 4 films'
+>
+
+We can check how many items an array is holding by accessing its length property.
+The value of the property will always return you the number of items in the array
+without you have to update it yourself.
+
+> director + " is the director of " + films.length + " films";
+'Steven Spielberg is the director of 4 films'
+> films.push("E.T.");
+5
+> director + " is the director of " + films.length + " films";
+'Steven Spielberg is the director of 5 films'
+>
+
+Now Spielberg is the director of 5 films, whereas previously it was only 4.
