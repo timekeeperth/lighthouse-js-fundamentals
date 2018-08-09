@@ -1,0 +1,80 @@
+var age = 15;
+
+function whichSchool(age) {
+  return (age < 13) ? "Elementary School"
+       : (age >= 13 && age <= 18) ? "Secondary School"
+       : "University"
+}
+
+console.log(whichSchool(15))
+
+
+
+
+Conditional (ternary) Operator
+
+The conditional (ternary) operator is the only javaScript operator that takes
+three operands. This operator is frequently used as a shortcut for the if
+statement.
+
+function getFee(isMember) {
+  return (isMember ? "$2.00" : "$10.00");
+}
+
+Another example is to display a different message based on the value of the isMember
+variable, you use this statement:
+
+'The fee is ' + (isMember ? '$2.00' : '$10.00')
+
+> console.log(getFee(true));
+$2.00
+undefined
+
+> console.log(getFee(false));
+$10.00
+undefined
+
+> console.log(getFee(1));
+$2.00
+undefined
+>
+
+SYNATX
+
+condition ? expr1 : expr2
+
+if condition is true, the operator returns the value of expr1; otherwise, it returns
+the value of expr2.
+
+A simple example to test whether or not you're old enough to legally drink alcohol in USA.
+
+var age = 26;
+var canDrinkAlcohol = (age > 21) ? "True, over 21" : "False, under 21";
+console.log(canDrinkAlcohol);
+"True, over 21"
+
+Another example is to display a different message based on the value of the isMember
+variable, you use this statement:
+
+'The fee is ' + (isMember ? '')
+
+You can also assign variables depending on a ternary result:
+
+var elvisLives = Math.PI > 4 ? 'Yep' : 'Nope';
+
+Multiple ternary evaluations are also possible (note: the conditional operator
+is right associative):
+
+var firstCheck = false,
+    secondCheck = false,
+    access = firstCheck ? 'Access denied' : secondCheck ? 'Access denied' : 'Access granted';
+
+console.log(access); // logs "Access granted"
+
+You can also use multiple conditions like in a multiple-conditions IF statement
+s
+var condition1 = true,
+    condition2 = false,
+    access = condition1 ? (condition2 ? "true true": "true false") : (condition2 ? "false true" : "false false");
+
+console.log(access); // logs "true false"
